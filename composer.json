@@ -5,13 +5,13 @@
     "license": "proprietary",
     "autoload": {
         "psr-4": {
-            "Coffreo\\Challenge\\": "src/"
+            "App\\": "src/"
         }
     },
     "authors": [
         {
-            "name": "Arthur JAMBON",
-            "email": "ajambon@coffreo.com"
+            "name": "Morgan Gouin",
+            "email": "morgan.gouin@gmail.com"
         }
     ],
     "minimum-stability": "stable",

@@ -7,8 +7,14 @@ docker-run:
 docker-sh:
 	docker compose exec challenge bash
 
+install:
+	docker compose exec challenge composer install
+
 docker-country:
-	docker compose exec challenge php src/country.php
+	docker compose exec challenge bin/console worker:country:consume
 
 docker-capital:
-	docker compose exec challenge php src/capital.php
+	docker compose exec challenge bin/console worker:capital:consume
+
+docker-test:
+	docker compose exec challenge bin/console worker:test

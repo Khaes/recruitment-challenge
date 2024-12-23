@@ -1,4 +1,4 @@
-FROM php:8.0-bullseye AS php
+FROM php:8.3-bullseye AS php
 
 # Install dependencies
 RUN set -eux \

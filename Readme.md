@@ -18,5 +18,5 @@ Le projet est composé de plusieurs worker PHP utilisant RabbitMQ pour la commun
 
 ## Bibliothèque
 
-- Symfony : pour l'injection de dépendance, le Kernel et la console. Je n'utiliserait pas Messenger pour l'interet de l'excercice. 
-Ayant moi même envie de comprendre RabbitMQ au plus simple.
+- Symfony : pour l'injection de dépendance et de pas avoir à recreer Kernel / command.
+

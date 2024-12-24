@@ -2,11 +2,10 @@
 
 namespace App\Command;
 
-use App\Worker\Capital;
-use PhpAmqpLib\Connection\AMQPStreamConnection;
-use PhpAmqpLib\Message\AMQPMessage;
+use App\Service\WorkerService;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -14,14 +13,22 @@ use Symfony\Component\Console\Output\OutputInterface;
 #[AsCommand(name: 'worker:test')]
 class TestWorker extends Command
 {
+    public function __construct(private readonly WorkerService $workerService) {
+        parent::__construct();
+    }
+
+    protected function configure(): void
+    {
+        $this->addArgument('code', InputArgument::REQUIRED, 'Country code, example : fr');
+    }
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $connection = new AMQPStreamConnection('rabbitmq', 5672, 'guest', 'guest');
-        $channel = $connection->channel();
+        if ($code = $input->getArgument('code')) {
+            $this->workerService->send($code, 'country');
 
-        $msg = new AMQPMessage('fr');
-        $channel->basic_publish($msg, 'router', 'country');
+            return Command::SUCCESS;
+        }
 
-        return Command::SUCCESS;
+        return Command::FAILURE;
     }
 }

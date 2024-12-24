@@ -17,4 +17,4 @@ docker-capital:
 	docker compose exec challenge bin/console worker:capital:consume
 
 docker-test:
-	docker compose exec challenge bin/console worker:test
+	docker compose exec challenge bin/console worker:test fr

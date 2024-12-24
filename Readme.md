@@ -2,8 +2,7 @@
 
 ## Installation
 
-Le but de cet exercice est de reprendre le code source de l'application fournie et de l'améliorer en utilisant les bonnes pratiques de développement.
-Le projet est composé de plusieurs worker PHP utilisant RabbitMQ pour la communication asynchrone.
+
 
 ## Plan d'action
 
@@ -18,5 +17,5 @@ Le projet est composé de plusieurs worker PHP utilisant RabbitMQ pour la commun
 
 ## Bibliothèque
 
-- Symfony : pour l'injection de dépendance et de pas avoir à recreer Kernel / command.
+- Symfony : pour l'injection de dépendance, les fichiers de config et de pas avoir à recreer Kernel / command.
 

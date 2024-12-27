@@ -10,11 +10,11 @@ docker-sh:
 install:
 	docker compose exec challenge composer install
 
-docker-country:
-	docker compose exec challenge bin/console worker:country:consume
+test:
+	docker compose exec challenge vendor/phpunit/phpunit/phpunit
 
-docker-capital:
-	docker compose exec challenge bin/console worker:capital:consume
+docker-messenger:
+	docker compose exec challenge bin/console messenger:consume async
 
 docker-test:
 	docker compose exec challenge bin/console worker:test fr

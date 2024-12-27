@@ -1,10 +1,11 @@
 services:
     rabbitmq:
-        image: rabbitmq:3-management
+        image: rabbitmq:4-management
         ports:
             - 15672:15672
     challenge:
         build:
+            context: ./Builds/PHP
             target: php
         volumes:
-            - .:/var/www
+            - ./Apps/Worker:/var/www

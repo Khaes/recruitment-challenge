@@ -37,9 +37,9 @@ Niveau performance il semble que ext-amqp soit meilleur.
 
 ## Futur
 
-L'utilisation de Kubernetes sur une infra type cloud pour la scalabilité, qui instancie plus de worker au besoin (CPU / RAM > 80%)
-Optimiser rabbitmq via la config et properties et rajouter une dead letter queue
-la sécurité : de ne plus être en guest/guest ou admin/admin pour les credentials rabbitmq, une infra privée derrière un Reverse Proxy + Bastion
-Un parser custom pour messenger, si il est conservé au projet
-Une lib commune aux workers
-Un repo par Worker / CICD
+- L'utilisation de Kubernetes sur une infra type cloud pour la scalabilité, qui instancie plus de worker au besoin (CPU / RAM > 80%)
+- Optimiser rabbitmq via la config et properties et rajouter une dead letter queue
+- la sécurité : de ne plus être en guest/guest ou admin/admin pour les credentials rabbitmq, une infra privée derrière un Reverse Proxy + Bastion
+- Un parser custom pour messenger, si il est conservé au projet
+- Une lib commune aux workers
+- Un repo par Worker / CICD

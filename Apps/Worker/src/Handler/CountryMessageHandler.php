@@ -32,7 +32,6 @@ class CountryMessageHandler implements BatchHandlerInterface
 
     private function process(array $jobs): void
     {
-        dump('qdssqd');
         foreach ($jobs as [$job, $ack]) {
             $url = sprintf('/v3.1/alpha/%s', $job->getCode());
             try {

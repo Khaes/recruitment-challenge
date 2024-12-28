@@ -42,4 +42,4 @@ Niveau performance il semble que ext-amqp soit meilleur.
 - la sécurité : de ne plus être en guest/guest ou admin/admin pour les credentials rabbitmq, une infra privée derrière un Reverse Proxy + Bastion
 - Un parser custom pour messenger, si il est conservé au projet
 - Une lib commune aux workers
-- Un repo par Worker / CICD
+- Un repo + CICD par Worker

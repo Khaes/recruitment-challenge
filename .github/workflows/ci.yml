@@ -50,7 +50,7 @@ jobs:
         # Install composer dependencies, and dump env
         - name: Composer install
           run: |
-            composer install --no-dev --no-progress --no-scripts --prefer-dist -a
+            composer install --dev --no-progress --no-scripts --prefer-dist -a
         - name: unit test
           uses: php-actions/phpunit@v3
           with:

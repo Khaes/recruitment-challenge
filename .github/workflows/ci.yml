@@ -51,9 +51,6 @@ jobs:
         - name: Composer install
           run: |
             composer install --no-dev --no-progress --no-scripts --prefer-dist -a
-    ci:
-      needs: build
-      steps:
         - name: unit test
           run: |
             vendor/phpunit/phpunit/phpunit

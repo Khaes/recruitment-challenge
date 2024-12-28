@@ -1,20 +1,20 @@
 docker-build:
+	docker build -t base-worker ./Builds/PHP
+compose-build:
 	docker compose build
 
-docker-run:
+compose-run:
 	docker compose up -d
 
-docker-sh:
-	docker compose exec challenge bash
+country-sh:
+	docker compose exec country bash
 
-install:
-	docker compose exec challenge composer install
+capital-sh:
+	docker compose exec capital bash
 
 test:
-	docker compose exec challenge vendor/phpunit/phpunit/phpunit
+	docker compose exec capital vendor/phpunit/phpunit/phpunit && docker compose exec country vendor/phpunit/phpunit/phpunit
 
-docker-messenger:
-	docker compose exec challenge bin/console messenger:consume async -vv
 
-docker-test:
-	docker compose exec challenge bin/console worker:test fr
+send-test:
+	docker compose exec country bin/console worker:test fr

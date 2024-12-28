@@ -3,9 +3,22 @@ services:
         image: rabbitmq:4-management
         ports:
             - 15672:15672
-    challenge:
+    #add sh to check that rabbitmq is started
+    capital:
         build:
-            context: ./Builds/PHP
-            target: php
+            context: ./Apps/CapitalWorker
         volumes:
-            - ./Apps/Worker:/var/www
+            - ./Apps/CapitalWorker:/var/www
+        restart: on-failure
+        depends_on:
+            rabbitmq:
+                condition: service_started
+    country:
+        build:
+            context: ./Apps/CountryWorker
+        volumes:
+            - ./Apps/CountryWorker:/var/www
+        restart: on-failure
+        depends_on:
+            rabbitmq:
+                  condition: service_started

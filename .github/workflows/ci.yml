@@ -12,7 +12,7 @@ jobs:
   unit-test:
     defaults:
       run:
-        working-directory: ./Apps/Worker
+        working-directory: ./Apps/CountryWorker
     runs-on: ubuntu-latest
     steps:
       # Mandatory : fetch the current repository
@@ -59,5 +59,5 @@ jobs:
             php_extensions: "json zip sodium bcmath"
             args: "-d date.timezone=Europe/Paris"
             memory_limit: 300M
-            configuration: Apps/Worker/phpunit.xml.dist
+            configuration: Apps/CountryWorker/phpunit.xml.dist
             testsuite: unittest

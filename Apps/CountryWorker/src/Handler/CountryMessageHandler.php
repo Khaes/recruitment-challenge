@@ -5,6 +5,7 @@ namespace App\Handler;
 use App\Message\CapitalMessage;
 use App\Message\CountryMessage;
 use App\Service\HttpService;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Component\Messenger\Exception\ExceptionInterface;
 use Symfony\Component\Messenger\Handler\Acknowledger;
 use Symfony\Component\Messenger\Handler\BatchHandlerInterface;
@@ -13,7 +14,6 @@ use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
-use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 /**
  * handle message in rabbitMQ country consumer

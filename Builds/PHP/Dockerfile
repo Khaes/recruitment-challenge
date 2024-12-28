@@ -24,7 +24,3 @@ RUN set -eux \
 
 # Install composer
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
-
-WORKDIR /var/www
-COPY . .
-CMD ["tail", "-f", "/dev/null"]

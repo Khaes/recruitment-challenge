@@ -8,7 +8,6 @@ use App\Message\CountryMessage;
 use App\Service\HttpService;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Messenger\Envelope;
-use Symfony\Component\Messenger\Handler\Acknowledger;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 class CountryMessageHandlerTest extends TestCase

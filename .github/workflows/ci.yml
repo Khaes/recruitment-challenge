@@ -29,6 +29,7 @@ jobs:
         - name: Installing dependencies
           uses: php-actions/composer@v6
           with:
+            container_workdir: /
             php_version: 8.3
             php_extensions: "json zip sodium bcmath"
 

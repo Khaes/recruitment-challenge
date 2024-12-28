@@ -23,14 +23,14 @@ class BigTestWorker extends Command
     {
         $codes = ['fr', 'zim', 'es', 'ger', 'ph'];
         try {
-            for($i = 0; $i < 100; $i++) {
+            for($i = 0; $i < 20; $i++) {
                 $code = $codes[rand(0, count($codes) - 1)];
-                $output->writeln($code);
                 usleep(rand(1, 5)*100000);
                 $this->messageBus->dispatch(new CountryMessage($code));
             }
         } catch (ExceptionInterface $e) {
-            dump($e->getMessage());
         }
+
+        return Command::SUCCESS;
     }
 }

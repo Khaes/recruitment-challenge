@@ -19,6 +19,7 @@ services:
         volumes:
             - ./Apps/CountryWorker:/var/www
         restart: on-failure
+        scale: 2
         depends_on:
             rabbitmq:
                   condition: service_started

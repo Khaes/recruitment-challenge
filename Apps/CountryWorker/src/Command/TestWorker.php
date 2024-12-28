@@ -12,7 +12,7 @@ use Symfony\Component\Messenger\Exception\ExceptionInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 // the name of the command is what users type after "php bin/console"
-#[AsCommand(name: 'worker:test')]
+#[AsCommand(name: 'worker:test:one')]
 class TestWorker extends Command
 {
     public function __construct(private readonly MessageBusInterface $messageBus) {

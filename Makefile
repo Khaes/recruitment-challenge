@@ -14,7 +14,7 @@ test:
 	docker compose exec challenge vendor/phpunit/phpunit/phpunit
 
 docker-messenger:
-	docker compose exec challenge bin/console messenger:consume async
+	docker compose exec challenge bin/console messenger:consume async -vv
 
 docker-test:
 	docker compose exec challenge bin/console worker:test fr

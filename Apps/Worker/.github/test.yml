@@ -1,0 +1,56 @@
+name: Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Mandatory : fetch the current repository
+        - name: Checkout repository
+          uses: actions/checkout@v3
+
+        # To be faster, use cache system for the Composer
+        - name: Get Composer Cache Directory
+          id: composer-cache
+          run: |
+            echo "::set-output name=dir::$(composer config cache-files-dir)"
+        - name: Cache composer (vendor)
+          uses: actions/cache@v2
+          with:
+            path: ${{ steps.composer-cache.outputs.dir }}
+            key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+            restore-keys: |
+              ${{ runner.os }}-composer-
+        # Define the right PHP environment
+        # https://github.com/shivammathur/setup-php (community)
+        - name: Environment for PHP
+          uses: shivammathur/setup-php@v2
+          with:
+            php-version: '8.3'
+            extensions: mbstring
+            tools: composer:v2
+            coverage: none
+          env:
+            update: true
+
+        # Ensure that composer.json is valid
+        - name: Validate composer.json and composer.lock
+          run: composer validate
+
+        # Install composer dependencies, and dump env
+        - name: Composer install
+          run: |
+            composer install --no-dev --no-progress --no-scripts --prefer-dist -a
+    test:
+      needs: build
+      steps:
+        - name: unit test
+          run: |
+            vendor/phpunit/phpunit/phpunit

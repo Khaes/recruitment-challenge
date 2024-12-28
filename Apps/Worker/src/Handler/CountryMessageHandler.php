@@ -7,6 +7,8 @@ use App\Message\CountryMessage;
 use App\Service\HttpService;
 use Symfony\Component\Messenger\Exception\ExceptionInterface;
 use Symfony\Component\Messenger\Handler\Acknowledger;
+use Symfony\Component\Messenger\Handler\BatchHandlerInterface;
+use Symfony\Component\Messenger\Handler\BatchHandlerTrait;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
@@ -17,33 +19,41 @@ use Symfony\Component\Messenger\Attribute\AsMessageHandler;
  * handle message in rabbitMQ country consumer
  */
 #[AsMessageHandler]
-readonly class CountryMessageHandler
+class CountryMessageHandler implements BatchHandlerInterface
 {
-
-    public function __construct(private HttpService $httpService, private MessageBusInterface $messageBus)
+    use BatchHandlerTrait;
+    public function __construct(readonly private HttpService $httpService, readonly private MessageBusInterface $messageBus)
     {
     }
-    public function __invoke(CountryMessage $message, Acknowledger $acknowledge): void
+    public function __invoke(CountryMessage $message, Acknowledger $acknowledge = null): mixed
     {
-        $url = sprintf('/v3.1/alpha/%s', $message->getCode());
-        try {
-            $json = $this->httpService->request($url);
-            dump($json);
-        } catch (RedirectionExceptionInterface|ServerExceptionInterface|TransportExceptionInterface $e) {
-            $acknowledge->nack($e);
-            return;
-        }
+        return $this->handle($message, $acknowledge);
+    }
 
-        if ($json && count($json) > 0 && array_key_exists('capital', $json[0]) && count($json[0]['capital']) > 0) {
-            //TODO: parse it with DTO
-            $capital = strtolower($json[0]['capital'][0]);
+    private function process(array $jobs): void
+    {
+        dump('qdssqd');
+        foreach ($jobs as [$job, $ack]) {
+            $url = sprintf('/v3.1/alpha/%s', $job->getCode());
             try {
-                $this->messageBus->dispatch(new CapitalMessage($capital));
-            } catch (ExceptionInterface $e) {
-
+                $json = $this->httpService->request($url);
+            } catch (RedirectionExceptionInterface|ServerExceptionInterface|TransportExceptionInterface $e) {
+                $ack->nack($e);
+                return;
             }
-        }
 
-        $acknowledge->ack();
+            if ($json && count($json) > 0 && array_key_exists('capital', $json[0]) && count($json[0]['capital']) > 0) {
+                //TODO: parse it with DTO
+                $capital = strtolower($json[0]['capital'][0]);
+                try {
+                    $this->messageBus->dispatch(new CapitalMessage($capital));
+                } catch (ExceptionInterface $e) {
+                    $ack->nack($e);
+                    return;
+                }
+            }
+
+            $ack->ack();
+        }
     }
 }

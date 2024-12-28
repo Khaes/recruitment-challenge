@@ -28,6 +28,7 @@ class TestWorker extends Command
         try {
             $this->messageBus->dispatch(new CountryMessage($input->getArgument('code')));
         } catch (ExceptionInterface $e) {
+            dump($e->getMessage());
             return Command::FAILURE;
         }
 

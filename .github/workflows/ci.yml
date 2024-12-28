@@ -55,7 +55,7 @@ jobs:
           uses: php-actions/phpunit@v3
           with:
             version: 9.6
-            php_version: 8.1
+            php_version: 8.3
             php_extensions: "json zip sodium bcmath"
             args: "-d date.timezone=Europe/Paris"
             memory_limit: 300M

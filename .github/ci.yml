@@ -10,6 +10,9 @@ on:
 
 jobs:
   build:
+    defaults:
+      run:
+        working-directory: ./Apps/Worker
     runs-on: ubuntu-latest
     steps:
       # Mandatory : fetch the current repository
@@ -48,7 +51,7 @@ jobs:
         - name: Composer install
           run: |
             composer install --no-dev --no-progress --no-scripts --prefer-dist -a
-    test:
+    ci:
       needs: build
       steps:
         - name: unit test

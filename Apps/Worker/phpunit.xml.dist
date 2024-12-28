@@ -19,13 +19,13 @@
 
     <testsuites>
         <testsuite name="Project Test Suite">
-            <directory>./App/Worker/tests</directory>
+            <directory>./Apps/Worker/tests</directory>
         </testsuite>
     </testsuites>
 
     <coverage processUncoveredFiles="true">
         <include>
-            <directory suffix=".php">src</directory>
+            <directory suffix=".php">./src</directory>
         </include>
     </coverage>
 
